@@ -82,6 +82,11 @@ class DirectUploadProvider extends React.Component<Props, State> {
     this.uploads = [...files].map(file => this._createUpload(file))
   }
 
+  handleError = (error: string) => {
+    this.setState({ uploading: false })
+    throw error
+  }
+
   handleBeginUpload = async () => {
     if (this.state.uploading) return
 
@@ -89,7 +94,7 @@ class DirectUploadProvider extends React.Component<Props, State> {
 
     const signedIds = await Promise.all(
       this.uploads.map(upload => upload.start())
-    )
+    ).catch(this.handleError)
 
     this.props.onSuccess(signedIds)
     this.uploads = []
