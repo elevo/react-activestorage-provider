@@ -39,6 +39,7 @@ type Props = {
   ...DelegatedProps,
   origin: Origin,
   onSuccess: (string[]) => mixed,
+  onError?: Response => mixed,
   headers?: CustomHeaders,
 }
 
@@ -84,7 +85,7 @@ class DirectUploadProvider extends React.Component<Props, State> {
 
   handleError = (error: string) => {
     this.setState({ uploading: false })
-    throw error
+    this.props.onError && this.props.onError(error)
   }
 
   handleBeginUpload = async () => {
