@@ -80,6 +80,7 @@ class Upload {
       state: 'finished',
       id: this.id,
       file: this.directUpload.file,
+      signedId
     })
     return signedId
   }

@@ -6,7 +6,7 @@ export type ActiveStorageFileUpload =
   | { state: 'waiting', id: string, file: File }
   | { state: 'uploading', id: string, file: File, progress: number }
   | { state: 'error', id: string, file: File, error: string }
-  | { state: 'finished', id: string, file: File }
+  | { state: 'finished', id: string, file: File, signedId: string }
 
 export type Origin = { host?: string, port?: string, protocol?: string }
 
