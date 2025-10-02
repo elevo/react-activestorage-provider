@@ -9,6 +9,7 @@
  */
 
 import * as React from 'react'
+import { flushSync } from 'react-dom'
 
 import Upload from './Upload'
 
@@ -99,10 +100,13 @@ class DirectUploadProvider extends React.Component<Props, State> {
 
   handleChangeFileUpload = (fileUpload: {
     [string]: ActiveStorageFileUpload,
-  }) =>
-    this.setState(({ fileUploads }) => ({
-      fileUploads: { ...fileUploads, ...fileUpload },
-    }))
+  }) => {
+    flushSync(() =>
+      this.setState(({ fileUploads }) => ({
+        fileUploads: { ...fileUploads, ...fileUpload },
+      }))
+    )
+  }
 
   _createUpload(file: File) {
     const {
